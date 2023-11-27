@@ -1,7 +1,13 @@
 import React from "react";
 import Sidebar from "../components/navbar";
 import { db } from "../firebaseConfig/firebase";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 function Ingreso() {
@@ -31,6 +37,7 @@ function Ingreso() {
   console.log(suma);
   //termina de recibir los datos
 
+  //evento de registrar transaccion
   const handledAdd = (e) => {
     e.preventDefault();
 
@@ -40,6 +47,7 @@ function Ingreso() {
     const conceptoValue = e.target.concepto.value;
     const fechaValue = e.target.fecha.value;
 
+    //agregar a ingreso
     if (e.target.select.value === "1") {
       if (
         montoValue !== undefined &&
@@ -59,6 +67,7 @@ function Ingreso() {
       }
     }
 
+    //agregar a gasto
     if (e.target.select.value === "2") {
       if (
         montoValue !== undefined &&
