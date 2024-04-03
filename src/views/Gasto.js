@@ -1,14 +1,13 @@
-import React from 'react'
-import Sidebar from '../components/navbar'
-import MyNavbar from '../components/navbar'
+import React from "react";
+import Sidebar from "../components/navbar";
+import MyNavbar from "../components/navbar";
 
 function Gasto() {
   return (
     <div>
-        <MyNavbar/>
-        
+      <MyNavbar />
 
-        <p>KHE</p>
+      <p>KHE</p>
       <p>KHE</p>
       <p>KHE</p>
       <p>KHE</p>
@@ -169,7 +168,7 @@ function Gasto() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default Gasto
+export default Gasto;
