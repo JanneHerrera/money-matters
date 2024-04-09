@@ -1,6 +1,5 @@
 import React from 'react';
 import Logo from '../resources/MoneyMatters.jpg'
-import { IoMdHome, IoMdDocument, IoMdContacts } from 'react-icons/io';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom';
@@ -23,13 +22,16 @@ const Navbar = () => {
                 <Link to='/Ingreso' className='nav-link'><i className="fa-solid fa-sack-dollar" style={{color: '#71a1f4'}}></i> Nuevo registro</Link>
               </li>
               <li className="nav-item">
-                <Link to='/Gasto' className='nav-link'><i class="fa-solid fa-list" style={{color: '#71a1f4'}}></i> Mostrar todos</Link>
+                <Link to='/Ahorros' className='nav-link'><i className="fa-solid fa-piggy-bank" style={{color: '#71a1f4'}}></i> Cuenta ahorro</Link>
+              </li>
+              <li className="nav-item">
+                <Link to='/Lista' className='nav-link'><i class="fa-solid fa-list" style={{color: '#71a1f4'}}></i> Mostrar todos</Link>
               </li>
               <li className="nav-item">
                 <Link to='/OCRapp' className='nav-link'><i class="fa-solid fa-camera" style={{color: '#71a1f4'}}></i> OCR</Link>
               </li>
             </ul>
-            <Link to="/" className='btn btn-outline-primary' >Iniciar Sesión</Link>
+            
           </div>
         </div>
       </nav>

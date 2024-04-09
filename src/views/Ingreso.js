@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/navbar";
 import { db } from "../firebaseConfig/firebase";
+import { useNavigate } from "react-router-dom"
 import {
   addDoc,
   collection,
@@ -9,31 +10,36 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Ingreso() {
   //empieza con recibir los datos de firebase
   const [data, setData] = useState([]);
+  const [suma, setSuma] = useState(0);
+  const navigate = useNavigate();
+
+  const getValue = async () => {
+    const val = doc(db, "usuarios", "Y3yo8XHNpHeinIHM7N5k");
+    const CollectionVal = collection(val, "ganancias");
+
+    const querySnapshot = await getDocs(CollectionVal);
+
+    setData(
+      querySnapshot.docs.map((doc) => ({
+        monto: parseInt(doc.data().monto, 10), // Accede a la propiedad 'monto' de 'doc.data()'
+      }))
+    );
+
+    setSuma(data.reduce(
+      (acumulador, objeto) => acumulador + objeto.monto,
+      0
+    ))
+  };
 
   useEffect(() => {
-    const getValue = async () => {
-      const val = doc(db, "usuarios", "Y3yo8XHNpHeinIHM7N5k");
-      const CollectionVal = collection(val, "ganancias");
-
-      const querySnapshot = await getDocs(CollectionVal);
-
-      setData(
-        querySnapshot.docs.map((doc) => ({
-          monto: parseInt(doc.data().monto, 10), // Accede a la propiedad 'monto' de 'doc.data()'
-        }))
-      );
-    };
-
     getValue();
   }, []);
-  const suma = data.reduce(
-    (acumulador, objeto) => acumulador + objeto.monto,
-    0
-  );
+  
   console.log(suma);
   //termina de recibir los datos
 
@@ -43,7 +49,7 @@ function Ingreso() {
 
     const val = doc(db, "usuarios", "Y3yo8XHNpHeinIHM7N5k");
 
-    const montoValue = e.target.monto.value;
+    const montoValue = parseInt(e.target.monto.value,10);
     const conceptoValue = e.target.concepto.value;
     const fechaValue = e.target.fecha.value;
 
@@ -61,6 +67,7 @@ function Ingreso() {
           fecha: fechaValue,
         });
         alert("Ganancia reportada");
+        navigate('/')
       } else {
         alert("Error: Some values are undefined");
         console.log(montoValue, conceptoValue, fechaValue);
@@ -81,6 +88,7 @@ function Ingreso() {
           fecha: fechaValue,
         });
         alert("Gasto reportado");
+        navigate('/')
       } else {
         alert("Error: Some values are undefined");
       }
@@ -92,7 +100,8 @@ function Ingreso() {
       <Sidebar />
       <p>KHE</p>
       <p>KHE</p>
-
+      <div className="container" style={{marginTop:'80px'}}>
+      <div className="shadow p-3 mb-5 bg-body-tertiary rounded">
       <form onSubmit={(e) => handledAdd(e)}>
         <div className="mb-3">
           <label style={{ marginTop: "10px" }}>
@@ -112,6 +121,7 @@ function Ingreso() {
           <input
             className="form-control"
             name="monto"
+            min={0}
             type="number"
             style={{ marginTop: "10px" }}
             placeholder="$00.00"
@@ -143,6 +153,8 @@ function Ingreso() {
           </button>
         </div>
       </form>
+      </div>
+      </div>
     </div>
   );
 }
